@@ -66,4 +66,9 @@ public class ProductServiceImpl implements ProductService {
     public List<Product> getAllProducts() {
         return new ArrayList<>(products.values());
     }
+
+    @Override
+    public Product getProduct(int id) {
+        return products.get(id);
+    }
 }
