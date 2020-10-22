@@ -7,16 +7,16 @@ import java.math.BigDecimal;
 @Component
 public class Product {
 
-    int id;
+    Integer id;
     String description;
     BigDecimal price;
     String imageUrl;
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
