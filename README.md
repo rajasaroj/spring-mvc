@@ -46,4 +46,20 @@ Solution: In the above pic you can see the version value is 1000, when the read 
           changed it throw OptimisticlockExpection notifying the program the version value is changed while read was happening
 
 
-# Branch: JpaOptimisticLocking
+# Branch: JpaDaoServicePattern
+In this Branch we have replace or data layer with Mysql databases and performed all the CRUD operation to database using DAO Design pattern.
+1) added a new service implementation for talking with database "ProductServiceJspDaoImpl.java"
+        1) Created entityManagerFactory and anotated it with @PersistenceUnit.
+           Here the object of entityManagerFactory is populated by spring itself
+           annotating it with @PersistanceUnit makes it more generic to work with.
+           variety of other databases frameworks like hibernate, H2 etc.
+        2) Anootated this class as @Service and @Profile(jpaDao) so that we can set profile as jpaDao if we want to use Database.
+        3) added one more line in productform.html 
+           <input type="hidden" th:field="*{version}"/> this also supply the version with the object in the case of updating/editing the object databases rely on version to
+           to identify whether the object is new or updated, if the object is new then the version will be null, if old object then it will already have some value.
+        4) Added spring.datasource.password=${Rdbpassword} in application.properties to read the password from vm args.
+           Added spring.datasource.hikari.maximum-pool-size=30 so that you doesn't run into connection problem and timeouts.
+        
+        
+
+
