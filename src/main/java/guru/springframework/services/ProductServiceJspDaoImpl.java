@@ -49,9 +49,6 @@ public class ProductServiceJspDaoImpl implements ProductService {
          *  2) updated product arrives it should update that particular product in the database instead of adding it as new product.
          *
          */
-
-        System.out.println("-----------------save or update-------------" + product.getId());
-
         Product savedProduct = entityManager.merge(product);
         entityManager.getTransaction().commit();
         return savedProduct;
