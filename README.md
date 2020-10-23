@@ -73,6 +73,7 @@ In this Branch we have replace or data layer with Mysql databases and performed 
 1) In this Branch we have written an Integration Test case for our ProductServiceJspDaoImpl.java.
 
 This branch we will talk about:
+
     1) How to setup spring boot for test purpose?
     2) How to configure our own configuration class?
     3) How to load test specific properties?
