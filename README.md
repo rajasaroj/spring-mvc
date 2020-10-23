@@ -66,5 +66,5 @@ In this Branch we have replace or data layer with Mysql databases and performed 
         
         
 # Branch: BootStrapData
-1) In this branvh we have added code for initail loading of data so that when you first time run this code it will add some default products and show you on view layer
+1) In this branch we have added code for initail loading of data so that when you first time run this code it will add some default products and show you on view layer
 
