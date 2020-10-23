@@ -16,3 +16,11 @@ This Project we have created a basic spring boot app that display the list  of i
       2) load the Spring context with all the spring beans from those packages as well.
       3) Read the application properties file for database configuration and using mssql driver connect to database
       4) read the pojo annotated with entity and create the table in msql with the name and properties of pojo. (Product.java in our case).
+      
+# Branch: JpaOptimisticLocking
+1) I would start off explaning this with two senarios.
+
+Senario 1: 
+
+Senario 2:
+

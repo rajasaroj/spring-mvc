@@ -1,11 +1,6 @@
 package guru.springframework.domain;
 
-import org.springframework.stereotype.Component;
-
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.math.BigDecimal;
 
 @Entity
@@ -14,6 +9,10 @@ public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     Integer id;
+
+    @Version
+    Integer version;
+
     String description;
     BigDecimal price;
     String imageUrl;
@@ -24,6 +23,14 @@ public class Product {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public void setVersion(Integer version) {
+        this.version = version;
+    }
+
+    public Integer getVersion() {
+        return version;
     }
 
     public String getDescription() {
@@ -54,6 +61,7 @@ public class Product {
     public String toString() {
         return "Product{" +
                 "id=" + id +
+                ", version=" + version +
                 ", description='" + description + '\'' +
                 ", price=" + price +
                 ", imageUrl='" + imageUrl + '\'' +
