@@ -62,7 +62,7 @@ In this Branch we have replace or data layer with Mysql databases and performed 
            to identify whether the object is new or updated, if the object is new then the version will be null, if old object then it will already have some value.
         
         4) Added spring.datasource.password=${Rdbpassword} in application.properties to read the password from vm args.
-           Added spring.datasource.hikari.maximum-pool-size=30 so that you doesn't run into connection problem and timeouts.
+           and also added spring.datasource.hikari.maximum-pool-size=30 so that you doesn't run into connection problem and timeouts.
         
         
 
