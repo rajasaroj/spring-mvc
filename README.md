@@ -55,13 +55,13 @@ In this Branch we have replace or data layer with Mysql databases and performed 
            annotating it with @PersistanceUnit makes it more generic to work with.
            variety of other databases frameworks like hibernate, H2 etc.
            
-        2) Anootated this class as @Service and @Profile(jpaDao) so that we can set profile as jpaDao if we want to use Database.
+        2) Anotated this class as @Service and @Profile(jpaDao) so that we can set profile as jpaDao if we want to use Database.
         
         3) added one more line in productform.html 
            <input type="hidden" th:field="*{version}"/> this also supply the version with the object in the case of updating/editing the object databases rely on version to
            to identify whether the object is new or updated, if the object is new then the version will be null, if old object then it will already have some value.
-        4) Added spring.datasource.password=${Rdbpassword} in application.properties to read the password from vm args.
         
+        4) Added spring.datasource.password=${Rdbpassword} in application.properties to read the password from vm args.
            Added spring.datasource.hikari.maximum-pool-size=30 so that you doesn't run into connection problem and timeouts.
         
         
