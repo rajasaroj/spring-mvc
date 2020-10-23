@@ -10,4 +10,9 @@ This Project we have created a basic spring boot app that display the list  of i
 4) Thyme engine in the product.html interates on the products objects using th:each and prints inside the table.
 5) Voila! all the products are displayed in the table when you make localhost:8080\product call from browser (make sure springboot app is running!)
 
- 
+# Branch: JPA
+1) in this branch we have configured our POJO class as an Database entity so that, when you kick of the spring boot application it will do below steps
+      1) Read the maven packages for JPA and msql
+      2) load the Spring context with all the spring beans from those packages as well.
+      3) Read the application properties file for database configuration and using mssql driver connect to database
+      4) read the pojo annotated with entity and create the table in msql with the name and properties of pojo. (Product.java in our case).

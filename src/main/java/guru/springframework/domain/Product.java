@@ -2,11 +2,17 @@ package guru.springframework.domain;
 
 import org.springframework.stereotype.Component;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.math.BigDecimal;
 
-@Component
+@Entity
 public class Product {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     Integer id;
     String description;
     BigDecimal price;
