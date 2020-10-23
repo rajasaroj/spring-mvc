@@ -68,3 +68,37 @@ In this Branch we have replace or data layer with Mysql databases and performed 
 # Branch: BootStrapData
 1) In this branch we have added code for initail loading of data so that when you first time run this code it will add some default products and show you on view layer
 
+
+# Branch: JpaIntegrationTests
+1) In this Branch we have written an Integration Test case for our ProductServiceJspDaoImpl.java.
+
+This branch we will talk about:
+    1) How to setup spring boot for test purpose?
+    2) How to configure our own configuration class?
+    3) How to load test specific properties?
+    3) How to set test specific active profile?
+    4) How to Kickoff Springboot for testing Integration test without starting Tomcat?
+    
+    1)  Steps a) Create ProductServiceJpaDaoImplTest.java file this file will have all of your test cases.
+        Annotate this file with below annotation.
+        @RunWith(SpringJUnit4ClassRunner.class)                  // This will bring up the spring context.
+        @SpringBootTest(classes=JpaIntegrationConfig.class)      // This will tell what configuartion we want to use.
+        @ActiveProfiles("jpaDao")                                // This will tell spring boot to use this as active profile for test.
+        @TestPropertySource(locations="classpath:testapplication.properties")   // This will tell spring boot to load the test properties from here.
+        this answers you're Question 1), 3), and 4)
+    
+    2) Create another package name it as config and create a JpaIntegrationConfig.java class.
+       Annotate this file with below annotation.
+       
+       /* @Configuartion tells the spring boot that this class is the configuaration class
+        * @EnableAutoConfiguration ask the the spring boot to auto configure it self
+        * @ComponentScan tell springboot to load the beans from heirarchy of all the packages inside "guru.springframework"
+        *
+        */
+       @Configuration
+       @EnableAutoConfiguration
+       @ComponentScan("guru.springframework")
+       this answers you're Question 2).
+       
+
+
