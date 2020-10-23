@@ -20,7 +20,26 @@ This Project we have created a basic spring boot app that display the list  of i
 # Branch: JpaOptimisticLocking
 1) I would start off explaning this with two senarios.
 
-Senario 1: 
+Senario 1: lets say youve have developed an web application where user can buy or sell stocks.
+           but the citeria here is once the buyer declares a price the user must approve and accept that price before buying it.  
 
-Senario 2:
+![Jpa Optimitic locking senario 1](https://user-images.githubusercontent.com/42677426/96957111-6a7dea00-1517-11eb-9b42-ea4930419820.png)
+
+Problem: In the above example you can see the user1 is reading the price $7999$ but the user2 (who is a potential seller) is updating the price at the same time.
+         Now what will happen is user1 who is a buyer has approved the price of stocks as 7999$ as he has reviewed that price and approved it he plans to proceed with    
+         procurement of that stock, but now in the database new price has been updated for the same stock, and it has not been reviewed by buyer. This is an race condition  
+         issue. We wantevery price that is updated by seller supposed to be reviewed and approved by buyer.
+         
+
+
+Senario 2: in order to avoid the concurrency race issue, we create add a property in side our pojo class version and anotate it as @version,
+           Whenever commit will happen it will increment the value of property version. 
+
+![Jpa Optimitic locking senario 2 Solution](https://user-images.githubusercontent.com/42677426/96958297-a1093400-151a-11eb-8239-462028b3d757.png)
+
+Solution: In the above pic you can see the version value is 1000, when the read transection done by user1 the value of price is 7999$ and version property is 1000.
+          as soon as the user2 update the price the version value is incremented and while making commit the read/write msql check the version and founds if the version value is 
+          changed it throw OptimisticlockExpection notifying the program the version value is changed while read was happening
+
+
 
