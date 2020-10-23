@@ -84,7 +84,7 @@ This branch we will talk about:
         @RunWith(SpringJUnit4ClassRunner.class)                  // This will bring up the spring context.
         @SpringBootTest(classes=JpaIntegrationConfig.class)      // This will tell what configuartion we want to use.
         @ActiveProfiles("jpaDao")                                // This will tell spring boot to use this as active profile for test.
-        @TestPropertySource(locations="classpath:testapplication.properties")   // This will tell spring boot to load the test properties from here.
+        @TestPropertySource(locations="classpath:testapplication.properties")   // This will tell spring boot to load the test properties from here. (Note Properties file stored in /test/resources)
         this answers you're Question 1), 3), and 4)
     
     2) Create another package name it as config and create a JpaIntegrationConfig.java class.
