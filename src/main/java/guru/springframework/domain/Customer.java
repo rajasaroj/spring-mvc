@@ -22,6 +22,14 @@ public class Customer {
     private String state;
     private String zipCode;
 
+    /*  This will attach user entity to customer (representing every customer ---> is as user But every user might or might not be a customer)
+     *  It a unidirectional relation ship hence we have user reference only in Customer class
+     *  and any operation done no customer it will propogate to user as well (since customer is parent and User is child)
+     *  This will also save you from detached entity exception.
+     */
+    @OneToOne(cascade = CascadeType.ALL)
+    private User user;
+
     public Integer getVersion() {
         return version;
     }
@@ -34,6 +42,13 @@ public class Customer {
         return id;
     }
 
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 
     public void setId(Integer id) {
         this.id = id;
@@ -109,5 +124,23 @@ public class Customer {
 
     public void setZipCode(String zipCode) {
         this.zipCode = zipCode;
+    }
+
+    @Override
+    public String toString() {
+        return "Customer{" +
+                "id=" + id +
+                ", version=" + version +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", addressLine1='" + addressLine1 + '\'' +
+                ", addressLine2='" + addressLine2 + '\'' +
+                ", city='" + city + '\'' +
+                ", state='" + state + '\'' +
+                ", zipCode='" + zipCode + '\'' +
+                ", user=" + user +
+                '}';
     }
 }

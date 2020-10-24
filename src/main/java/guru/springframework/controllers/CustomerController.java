@@ -1,6 +1,7 @@
 package guru.springframework.controllers;
 import guru.springframework.domain.Customer;
 import guru.springframework.services.CustomerService;
+import guru.springframework.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -15,9 +16,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class CustomerController {
 
     private CustomerService customerService;
+    private UserService userService;
 
     @Autowired
-    @Qualifier("empdao")
+    public void setUserService(UserService userService) {
+        this.userService = userService;
+    }
+
+    @Autowired
     public void setCustomerService(CustomerService customerService) {
         this.customerService = customerService;
     }
@@ -42,12 +48,16 @@ public class CustomerController {
 
     @RequestMapping("/new")
     public String newCustomer(Model model){
+
+
+
         model.addAttribute("customer", new Customer());
         return "/customer/customerform";
     }
 
     @RequestMapping(method = RequestMethod.POST)
     public String saveOrUpdate(Customer customer){
+
         Customer newCustomer = customerService.saveOrUpdate(customer);
         return "redirect:/customer/show/" + newCustomer.getId();
     }
