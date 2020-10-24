@@ -5,9 +5,7 @@ import guru.springframework.domain.Customer;
 import guru.springframework.services.security.EncryptionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
-
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;

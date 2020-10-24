@@ -13,7 +13,9 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes = JpaIntegrationConfig.class)
@@ -23,6 +25,12 @@ public class CostumerServiceDaoImplTest {
 
     private CustomerService customerService;
     private UserService userService;
+    private ProductService productService;
+
+    @Autowired
+    public void setProductService(ProductService productService) {
+        this.productService = productService;
+    }
 
     @Autowired
     public void setCustomerService(CustomerService customerService) {
@@ -91,16 +99,110 @@ public class CostumerServiceDaoImplTest {
         customer.setPaymentGateway(paymentGateway);
         customerService.saveOrUpdate(customer);
 
-
-
-
-
         List<Customer> customers1 = (List<Customer>) customerService.listAll();
 
         for (Customer cs: customers1) {
             cs.setPaymentGateway(paymentGateway);
             customerService.saveOrUpdate(cs);
         }
+    }
+
+
+
+    // Test Case for many 2 many Senario
+//      Raja: Tooth brush,
+//             Phone
+//             keyboard
+//             laptop
+//
+//      Arjun: Phone
+//             laptop
+//             headphone
+//
+//      kasim: Grapler
+//             phone
+//             headphone
+//
+//      Product wise:
+//      Phone: Raja
+//             Arjun
+//             kasim
+//
+//      keyboard: raja
+//
+//      laptop: Raja
+//              Arjun
+//
+//      headphone: kasim,
+//                 Arjun
+//
+//      Tooth brush: Raja
+//      grapler: kasim
+
+
+
+
+
+    @Test
+    public void many2manyTest() {
+
+        Customer rajaCus = new Customer();
+        rajaCus.setFirstName("raj");
+        Customer arjunCus = new Customer();
+        arjunCus.setFirstName("arjun");
+
+        Customer kasimCus = new Customer();
+        kasimCus.setFirstName("kasim");
+
+
+
+        Set<Product> rajaCusSet = new HashSet<>();
+        Set<Product> arjunCusSet = new HashSet<>();
+        Set<Product> kasimCusSet = new HashSet<>();
+
+        Product Tbrush = new Product("Tooth bursh");
+        Product Phone = new Product("Phone");
+        Product Keyboard = new Product("keyboard");
+        Product Laptop = new Product("laptop");
+        Product Headphone = new Product("Headphone");
+        Product Grapler = new Product("Grapler");
+
+
+        // Add these prducts into database
+        productService.saveOrUpdateProduct(Tbrush);
+        productService.saveOrUpdateProduct(Phone);
+        productService.saveOrUpdateProduct(Keyboard);
+        productService.saveOrUpdateProduct(Laptop);
+        productService.saveOrUpdateProduct(Headphone);
+        productService.saveOrUpdateProduct(Grapler);
+
+
+
+        List<Product> productList = productService.getAllProducts();
+
+
+        // Setting set for each user based on above descrption
+        rajaCusSet.add((Product) productList.stream().filter(x -> x.getDescription().contentEquals("Tooth bursh")).findAny().orElse(null));
+        rajaCusSet.add((Product) productList.stream().filter(x -> x.getDescription().contentEquals("Phone")).findAny().orElse(null));
+        rajaCusSet.add((Product) productList.stream().filter(x -> x.getDescription().contentEquals("keyboard")).findAny().orElse(null));
+        rajaCusSet.add((Product) productList.stream().filter(x -> x.getDescription().contentEquals("laptop")).findAny().orElse(null));
+        rajaCus.setProductset(rajaCusSet);
+        customerService.saveOrUpdate(rajaCus);
+
+
+        arjunCusSet.add((Product) productList.stream().filter(x -> x.getDescription().contentEquals("Phone")).findAny().orElse(null)  );
+        arjunCusSet.add((Product) productList.stream().filter(x -> x.getDescription().contentEquals("laptop")).findAny().orElse(null)  );
+        arjunCusSet.add((Product) productList.stream().filter(x -> x.getDescription().contentEquals("Headphone")).findAny().orElse(null)   );
+
+        arjunCus.setProductset(arjunCusSet);
+        customerService.saveOrUpdate(arjunCus);
+
+        kasimCusSet.add((Product) productList.stream().filter(x -> x.getDescription().contentEquals("Grapler")).findAny().orElse(null)   );
+        kasimCusSet.add((Product) productList.stream().filter(x -> x.getDescription().contentEquals("Phone")).findAny().orElse(null)   );
+        kasimCusSet.add((Product) productList.stream().filter(x -> x.getDescription().contentEquals("Headphone")).findAny().orElse(null)   );
+
+        kasimCus.setProductset(kasimCusSet);
+        customerService.saveOrUpdate(kasimCus);
 
 
 

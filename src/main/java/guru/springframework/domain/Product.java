@@ -2,9 +2,12 @@ package guru.springframework.domain;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.Set;
 
 @Entity
 public class Product {
+
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -16,6 +19,25 @@ public class Product {
     String description;
     BigDecimal price;
     String imageUrl;
+
+
+    @ManyToMany(mappedBy = "productset")
+    private Set<Customer> customerset;
+
+
+    public void setCustomerset(Set<Customer> customerset) {
+        this.customerset = customerset;
+    }
+
+    public Set<Customer> getCustomerset() {
+        return customerset;
+    }
+
+    public Product() {}
+
+    public Product(String description) {
+        this.description = description;
+    }
 
     public Integer getId() {
         return id;

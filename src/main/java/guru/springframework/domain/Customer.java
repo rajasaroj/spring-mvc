@@ -1,6 +1,7 @@
 package guru.springframework.domain;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 public class Customer {
@@ -36,6 +37,22 @@ public class Customer {
 
     @ManyToOne(cascade = CascadeType.ALL)
     private PaymentGateway paymentGateway;
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "product_liked",
+            joinColumns = @JoinColumn(name = "customer_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "product_id", referencedColumnName = "id")
+    )
+    private Set<Product> productset;
+
+
+    public Set<Product> getProductset() {
+        return productset;
+    }
+
+    public void setProductset(Set<Product> productset) {
+        this.productset = productset;
+    }
 
     public void setPaymentGateway(PaymentGateway paymentGateway) {
         this.paymentGateway = paymentGateway;
@@ -156,6 +173,8 @@ public class Customer {
                 ", state='" + state + '\'' +
                 ", zipCode='" + zipCode + '\'' +
                 ", user=" + user +
+                ", paymentGateway=" + paymentGateway +
+                ", productSet=" + productset +
                 '}';
     }
 }
