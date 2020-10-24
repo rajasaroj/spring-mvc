@@ -128,4 +128,39 @@ Hence we have created 2 packages
     
     
     
-#Branch: 
+#Branch: BidirectionalOne2oneEntityRelationship
+
+In this branch have created bidirection association between Customer and Users (assuming Customer and users are in same business)
+The Relationship between them us one to one and bidirection,
+
+    Class Customer
+    /*  This will attach user entity to customer and customers entity to the user (Considering the user and costumer are in same business case)
+     *  It a bidirectional relation ship hence we have user reference in Customer class
+     *  and Customer reference in user class.
+     *
+     * The objective here is: to provide all cascade operation permit to customer
+     *                        and provide only save and update permit to user
+     *
+     *  This will also save you from detached entity exception.
+     */
+    @OneToOne(cascade = CascadeType.ALL)
+    private User user;
+   
+We have made small change with the User entity this will enable User to keep the reference of customer object, this make it bidirectional
+
+    class User
+    /* Now we are doing birerection asssociation where a user can also Save or update, we do this using below cascade  type
+     * CascadeType PERSIST: propagates the persist operation from a parent to a child entity. When we save the User entity, the Customer entity will also get saved.
+     * CascadeType.MERGE: propagates the merge operation from a parent to a child entity. this update the state of given object (That would be basically an update in parent or child object) into database persistane object.
+     */
+    @OneToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    Customer customer;
+    
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+        customer.setUser(this);
+    }
+
+above setter setCustomer in user class is saving the user object in customer 
+and saving the customer object in user. 
+Here binding is happening on both the side.
