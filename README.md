@@ -103,3 +103,25 @@ This branch we will talk about:
        
 
 
+# Branch: One2oneEntityReleationUnidirection
+
+In this branch we have Introduced new entits Customer and Users
+The Relationship between them us one to one and undirection, this means every customer ---> is as user But every user might or might not be a customer.
+Hence we have provide the reference of user entity in Customer class and annotated it with cascade.
+
+
+    Class Customer
+    /*  This will attach user entity to customer (representing every customer ---> is as user But every user might or might not be a customer)
+     *  It a unidirectional relation ship hence we have user reference only in Customer class
+     *  and any operation done no customer it will propogate to user as well (since customer is parent and User is child)
+     *  This will also save you from detached entity exception.
+     */
+    @OneToOne(cascade = CascadeType.ALL)
+    private User user;
+    
+Along with this we have also added on Security feature to keep users passwords encrpted.
+Hence in User class we have annotated password feild as @Trasient so that it doesn't store raw password instead it should store the encrpted password
+The logic for password encrption comes from Third party libraries... and as we know whenever we want to inject third party libraries object we have to create @Confguation anotated class.
+Hence we have created 2 packages
+    1) CommonConfig: it will handle the creation of bean of 3rd party libraries
+    2) services/security: this will define method for encrpting password and checking passwords etc.
