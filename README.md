@@ -123,5 +123,6 @@ Along with this we have also added on Security feature to keep users passwords e
 Hence in User class we have annotated password feild as @Trasient so that it doesn't store raw password instead it should store the encrpted password
 The logic for password encrption comes from Third party libraries... and as we know whenever we want to inject third party libraries object we have to create @Confguation anotated class.
 Hence we have created 2 packages
+
     1) CommonConfig: it will handle the creation of bean of 3rd party libraries
-    2) services/security: this will define method for encrpting password and checking passwords etc.
+    2) services/security: this will define method for encrpting password and checking passwords via EncryptionServiceImpl etc.
