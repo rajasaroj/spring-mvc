@@ -128,7 +128,7 @@ Hence we have created 2 packages
     
     
     
-#Branch: BidirectionalOne2oneEntityRelationship
+# Branch: BidirectionalOne2oneEntityRelationship
 
 In this branch have created bidirection association between Customer and Users (assuming Customer and users are in same business)
 The Relationship between them us one to one and bidirection,
