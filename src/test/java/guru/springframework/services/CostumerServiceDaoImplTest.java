@@ -21,10 +21,16 @@ import java.util.List;
 public class CostumerServiceDaoImplTest {
 
     private CustomerService customerService;
+    private UserService userService;
 
     @Autowired
     public void setCustomerService(CustomerService customerService) {
         this.customerService = customerService;
+    }
+
+    @Autowired
+    public void setUserService(UserService userService) {
+        this.userService = userService;
     }
 
     @Test
@@ -34,21 +40,38 @@ public class CostumerServiceDaoImplTest {
     }
 
     @Test
-    public void saveOrmodifyTest () {
+    public void saveOrmodifyusingCustomerTest () {
 
         List<Customer> customers = (List<Customer>) customerService.listAll();
-
         User user = new User();
         user.setUserName("rsaroj");
         user.setPassword("MyAwesomePassword");
         Customer customer = customers.get(0);
         customer.setUser(user);
-
         customerService.saveOrUpdate(customer);
-
         List<Customer> customers1 = (List<Customer>) customerService.listAll();
-
         System.out.println(customers1.get(0));
 
     }
+
+    @Test
+    public void saveORmodifyUsingUser() {
+        Customer customer = new Customer();
+        customer.setFirstName("Jenny");
+        customer.setLastName("lopez");
+
+        User user = new User();
+        user.setUserName("JLo@gmail.com");
+        user.setPassword("herAwsomepasword");
+        user.setCustomer(customer);
+
+        userService.saveOrUpdate(user);
+        List<User> users = (List<User>) userService.listAll();
+
+        users.forEach(System.out::println);
+
+    }
+
+
+
 }

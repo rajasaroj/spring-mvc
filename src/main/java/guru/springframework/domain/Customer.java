@@ -22,9 +22,13 @@ public class Customer {
     private String state;
     private String zipCode;
 
-    /*  This will attach user entity to customer (representing every customer ---> is as user But every user might or might not be a customer)
-     *  It a unidirectional relation ship hence we have user reference only in Customer class
-     *  and any operation done no customer it will propogate to user as well (since customer is parent and User is child)
+    /*  This will attach user entity to customer and customers entity to the user (Considering the user and costumer are in same business case)
+     *  It a bidirectional relation ship hence we have user reference in Customer class
+     *  and Customer reference in user class.
+     *
+     * The objective here is: to provide all cascade operation permit to customer
+     *                        and provide only save and update permit to user
+     *
      *  This will also save you from detached entity exception.
      */
     @OneToOne(cascade = CascadeType.ALL)

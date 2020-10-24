@@ -19,6 +19,22 @@ public class User {
 
     String encrptedPassword;
 
+    /* Now we are doing birerection asssociation where a user can also Save or update, we do this using below cascade  type
+     * CascadeType PERSIST: propagates the persist operation from a parent to a child entity. When we save the User entity, the Customer entity will also get saved.
+     * CascadeType.MERGE: propagates the merge operation from a parent to a child entity. this update the state of given object (That would be basically an update in parent or child object) into database persistane object.
+     */
+    @OneToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    Customer customer;
+
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+        customer.setUser(this);
+    }
+
     public String getEncrptedPassword() {
         return encrptedPassword;
     }
