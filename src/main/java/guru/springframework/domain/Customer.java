@@ -34,6 +34,17 @@ public class Customer {
     @OneToOne(cascade = CascadeType.ALL)
     private User user;
 
+    @ManyToOne(cascade = CascadeType.ALL)
+    private PaymentGateway paymentGateway;
+
+    public void setPaymentGateway(PaymentGateway paymentGateway) {
+        this.paymentGateway = paymentGateway;
+    }
+
+    public PaymentGateway getPaymentGateway() {
+        return paymentGateway;
+    }
+
     public Integer getVersion() {
         return version;
     }

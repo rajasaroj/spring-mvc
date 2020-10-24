@@ -2,6 +2,7 @@ package guru.springframework.services;
 
 import guru.springframework.config.JpaIntegrationConfig;
 import guru.springframework.domain.Customer;
+import guru.springframework.domain.PaymentGateway;
 import guru.springframework.domain.Product;
 import guru.springframework.domain.User;
 import org.junit.Test;
@@ -72,6 +73,38 @@ public class CostumerServiceDaoImplTest {
 
     }
 
+    @Test
+    public void saveOrmodifyusingPaymentCustomerTest () {
+
+        PaymentGateway paymentGateway = new PaymentGateway();
+        paymentGateway.setGateWay("Amazon pay");
+
+        Customer customer = new Customer();
+        customer.setFirstName("Arjen");
+        customer.setLastName("Wkaoiz");
+
+        User user = new User();
+        user.setUserName("Arjen.Wkaoiz@gmail.com");
+        user.setPassword("Wkaoiz123");
+
+        customer.setUser(user);
+        customer.setPaymentGateway(paymentGateway);
+        customerService.saveOrUpdate(customer);
+
+
+
+
+
+        List<Customer> customers1 = (List<Customer>) customerService.listAll();
+
+        for (Customer cs: customers1) {
+            cs.setPaymentGateway(paymentGateway);
+            customerService.saveOrUpdate(cs);
+        }
+
+
+
+    }
 
 
 }
