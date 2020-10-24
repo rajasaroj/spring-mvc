@@ -164,3 +164,31 @@ We have made small change with the User entity this will enable User to keep the
 above setter setCustomer in user class is saving the user object in customer 
 and saving the customer object in user. 
 Here binding is happening on both the side.
+
+
+#Branch: Many2Manyrelationship
+
+In this branch we have implemented many 2 many releationship example
+The idea over here is a products has multiple likers and a customers can like multiple products this creates many 2 many association.
+
+In order to implement this we have make few simple changes in our pojo entites classes.
+
+
+    1) Customer class: 
+       @ManyToMany(cascade = CascadeType.ALL)   // this will define many 2 many relation ship with cascade type
+       @JoinTable(name = "product_liked",       // This will define the name of joined table which will hold ids of both the entities to represent there asociation
+               joinColumns = @JoinColumn(name = "customer_id", referencedColumnName = "id"),   // This define column name in join table refering customer (our source table)
+               inverseJoinColumns = @JoinColumn(name = "product_id", referencedColumnName = "id")  // this difine column name in join table refering Products (our target table)
+       )
+       private Set<Product> productset;         // this will hold object of all products liked by this costumer                                          
+      
+       
+    2) Product class:
+           @ManyToMany(mappedBy = "productset")  // This defines mapping between pruductset and customerset Notice the "productset" is the set property in the Customer column
+           private Set<Customer> customerset;
+    
+    
+More verification details regarding its woking is discussed in test class in many2manytest() 
+make sure to check that our, I also talks above the most mischevious problem in many2many JPA mapping regarding duplicated updates and also give the solution for it.
+    
+    
