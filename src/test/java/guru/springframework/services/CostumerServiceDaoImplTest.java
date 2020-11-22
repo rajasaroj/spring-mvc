@@ -5,6 +5,7 @@ import guru.springframework.domain.Customer;
 import guru.springframework.domain.PaymentGateway;
 import guru.springframework.domain.Product;
 import guru.springframework.domain.User;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,8 @@ public class CostumerServiceDaoImplTest {
     private CustomerService customerService;
     private UserService userService;
     private ProductService productService;
+
+    @Before
 
     @Autowired
     public void setProductService(ProductService productService) {
